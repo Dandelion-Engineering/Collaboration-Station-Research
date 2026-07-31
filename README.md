@@ -74,7 +74,7 @@ The reasoning trail is the point. You do not get a result handed to you from a b
 
 1. Copy this repository to a new folder — one folder per project.
 2. Open `Project Details/Project Details.md` and make it yours. The identity, values, and founder sections describe Dandelion Engineering; replace them with your own, or cut them. Write your idea into **The Idea** section at the bottom.
-3. Update `CITATION.cff` and `LICENSING.md` — both name Dandelion Engineering's director as the citable author. Replace that with your own name before you publish anything.
+3. Replace `CITATION.cff` — as shipped it describes *this framework*, so a project that leaves it unchanged will claim to be Collaboration Station. Swap the title, abstract, URL, date, and author for your project's. Update `LICENSING.md` the same way; both name Dandelion Engineering's director as the citable author.
 4. Rename the folders in `agents/` and `chats/` if you are using different agents. Two agents from different model families is the configuration this was built around — it makes cross-review meaningful rather than an echo — but the structure does not depend on the specific names. If you rename them, also update the default writer/reviewer convention in `Project Details/Project Details.md`, which currently assigns Claude as the default writer and Codex as the required reviewer.
 5. Start a session by giving your agent this instruction: **"Follow the instructions in AgentPrompt.md."** That is the entire launch command.
 
@@ -86,9 +86,19 @@ The standards in `Project Details/Project Details.md` exist because the failure 
 
 A clean negative result is a successful project. If the framework is working, it should tell you your idea was wrong quickly and cheaply, and leave you a record showing why.
 
+## Citing this work
+
+If you use Collaboration Station, adapt it, or build on it, please cite it. GitHub's **"Cite this repository"** button in the sidebar will generate BibTeX or APA from `CITATION.cff`, or you can use:
+
+> Crespo, R. (2026). *Collaboration Station (Research): a plain-language framework for running exploratory scientific research projects with AI agents.* Dandelion Engineering. https://github.com/Dandelion-Engineering/Collaboration-Station-Research
+
+Attribution is also what CC BY 4.0 asks for on the prose, so a citation covers both the courtesy and the license.
+
 ## License
 
 Path-scoped. Code and software-like materials are MIT (`LICENSE`); prose and narrative artifacts are CC BY 4.0 (`LICENSE-docs`). `LICENSING.md` is the authoritative map of which applies where. Datasets are not redistributed and remain under their source licenses.
+
+**A note on GitHub's license badge.** GitHub reads the root `LICENSE` file and labels this repository "MIT" in the sidebar. That label does not describe what is actually here: this repository contains no code, so every file in it is prose under **CC BY 4.0**. Both license files ship anyway, because a project built from this template will contain code as well as prose. Where the badge and `LICENSING.md` disagree, `LICENSING.md` governs.
 
 ---
 

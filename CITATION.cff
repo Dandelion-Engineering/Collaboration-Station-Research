@@ -1,36 +1,57 @@
-# Canonical citation metadata. GitHub reads this file to render the
-# "Cite this repository" button.
+# Canonical citation metadata for the Collaboration Station (Research) framework.
+# GitHub reads this file to render the "Cite this repository" button.
 #
-# Authorship note: the citable author is the human director (Randy Crespo), with
-# Dandelion Engineering as the affiliation/organization. AI tools are not listed
-# as formal authors under current citation norms (they cannot take responsibility
-# for the work), so the AI collaboration is disclosed in `abstract` instead. This
-# is deliberate and matches Dandelion Engineering's transparency standard.
+# ── IF YOU ARE USING THIS REPOSITORY AS A TEMPLATE FOR YOUR OWN PROJECT ──
+# Replace `title`, `abstract`, `url`, `repository-code`, `date-released`, and
+# `authors` with your project's own values. As shipped, this file describes the
+# framework itself, so a project that leaves it unchanged will claim to be
+# Collaboration Station. Add `version: "x.y.z"` when you cut a release, and omit
+# any release field you cannot yet fill rather than leaving a placeholder —
+# GitHub and other tools parse this file, so it must stay valid when it lands.
+# Set `type` to `dataset` if the primary released output is data rather than
+# software.
+#
+# Authorship note: the citable author is the human director, with the
+# organization as the affiliation. AI tools are not listed as formal authors
+# under current citation norms (they cannot take responsibility for the work),
+# so the AI collaboration is disclosed in `abstract` instead. This is deliberate
+# and matches Dandelion Engineering's transparency standard.
 #
 # License scope is intentionally NOT declared here: this work is path-scoped
 # (MIT for code, CC BY 4.0 for prose, datasets under their source licenses), and
 # CFF treats multiple `license:` values as "either/or," which would misstate that
 # split. `LICENSING.md` is the authoritative license-scope record.
-#
-# Before this file is live in a real project root, fill the placeholders below
-# (title, abstract) and ADD the release fields with valid values:
-#   version: "x.y.z"
-#   date-released: "YYYY-MM-DD"
-#   url: "https://<repository or project landing URL>"
-# Omit any release field you cannot yet fill, rather than leaving a placeholder —
-# GitHub and other tools parse this file, so it must stay valid when it lands.
 cff-version: 1.2.0
-message: "If you use this work, please cite it using the metadata below."
-title: "<Project Title>"
-# Set to `dataset` if the primary released output is data rather than software.
+message: "If you use Collaboration Station, or adapt it for your own work, please cite it using the metadata below."
+title: "Collaboration Station (Research): a plain-language framework for running exploratory scientific research projects with AI agents"
 type: software
 authors:
   - family-names: Crespo
     given-names: Randy
     affiliation: Dandelion Engineering
 abstract: >-
-  <One sentence: the question this project asked and its honest headline result.>
-  This work was directed by Randy Crespo (Dandelion Engineering) and produced in
-  collaboration with the AI research agents Claude (Anthropic) and Codex (OpenAI);
-  the AI contribution is disclosed here per Dandelion Engineering's transparency
-  standard.
+  Collaboration Station is a plain-language framework for running exploratory
+  scientific research projects with AI agents. It is not software: it is a folder
+  structure and a set of instructions in ordinary English that let one or more
+  agents carry a research project across many sessions, with continuity handled
+  by files rather than by model memory. Projects are bound by a fifteen-slot
+  Claim Sheet that predeclares what success, failure, and an inconclusive result
+  look like before any results exist; changes to that contract run through an
+  append-only amendment protocol; and a project concludes with a fixed set of
+  deliverables — a technical report, a plain-language piece, a self-contained
+  reproducibility packet, and a director-facing study guide. The framework is
+  aimed at the stage before a researcher commits significant time or funding to
+  an idea, and is designed to make a clean negative result cheap to reach. It was
+  developed by Randy Crespo (Dandelion Engineering) in collaboration with the AI
+  research agents Claude (Anthropic) and Codex (OpenAI); the AI contribution is
+  disclosed here per Dandelion Engineering's transparency standard.
+url: "https://github.com/Dandelion-Engineering/Collaboration-Station-Research"
+repository-code: "https://github.com/Dandelion-Engineering/Collaboration-Station-Research"
+date-released: 2026-07-31
+keywords:
+  - AI agents
+  - multi-agent collaboration
+  - exploratory research
+  - research methodology
+  - reproducibility
+  - open science
