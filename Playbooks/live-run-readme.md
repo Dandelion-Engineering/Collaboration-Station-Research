@@ -44,8 +44,8 @@ Top to bottom. **The run-provenance part is conditional**, so this is the order,
 
 At Phase 3 close, the README is **promoted** to a landing page that showcases, in this order. **State B points, it does not duplicate:** any content another artifact already owns (run instructions, the full method, the deep explanation) is *linked*, never restated here.
 
-- **The question**, in one honest sentence.
-- **How this project was run** — the shared run-provenance block below, pasted verbatim, **when this run was selected and launched by the agents rather than requested by the director** — see *When the run-provenance block is required*. Same block and same wording as State A's *How this project was run*; **carried through the promotion rather than added at it.** It sits above the result on purpose: a disclosure a reader reaches after the headline is a disclosure that arrived too late to do anything.
+- **Status banner (always current — the first thing seen).** Carry the State A banner through the promotion and overwrite its terminal values: project title, the one-line question, the completed phase, the public-state tag `Concluded`, and the conclusion date as last-updated. The question already lives here; do not create a second standalone copy below it.
+- **How this project was run** — the shared run-provenance block below, pasted verbatim, **when this run was selected and launched by the agents rather than requested by the director** — see *When the run-provenance block is required*. Same block and same wording as State A's *How this project was run*; **carried through the promotion rather than added at it.** It sits directly under the banner and above the result on purpose: a disclosure a reader reaches after the headline is a disclosure that arrived too late to do anything.
 - **The headline result** — yes / no / bounded — stated plainly, with the honesty bound intact (a clean negative shown *as* a result, not buried).
 - **The verification path** — "here's how *you* can check this yourself" (the Slot 8 verification artifact). Reproducibility-you-can-actually-run is the brand.
 - **The artifacts** — links to Technical Report, Accessible Piece, Reproducibility Packet, Study Guide.
@@ -128,11 +128,11 @@ This is the condensed Project Details overview. It is the **same for every proje
 ## Promotion rule (encoded here)
 
 - Created at go-public in **State A**.
-- The status banner is **overwritten** each phase transition (it's a "where are we now" line).
+- The status banner is **overwritten** at each phase transition and **carried through the promotion**. At Phase 3 close, its phase line records completion, its public-state tag becomes `Concluded`, and its last-updated value becomes the conclusion date.
 - The running log is **append-only** and **lean** throughout State A (entries only at finished artifacts, phase closes, or genuinely noteworthy events — not every session).
-- The **run-provenance block**, on an agent-selected run, is present from creation and **carried through the promotion unchanged**, directly under the question. Whether the run is agent-selected or director-requested is settled at launch and never re-decided here.
+- The **run-provenance block**, on an agent-selected run, is present from creation and **carried through the promotion unchanged**, directly under the status banner. Whether the run is agent-selected or director-requested is settled at launch and never re-decided here.
 - The **About + Contact block** is present from creation and **carried through the promotion unchanged**. It is never added at promotion and never removed during it — a promotion that has to *add* contact information is a promotion that ran without it.
-- At **Phase 3 close**, promote to **State B**, preserving the running log as the collapsed History section and adding the *How Dandelion runs a research project* block between *Reproduce it* and *History*.
+- At **Phase 3 close**, promote to **State B**, finalizing rather than dropping the status banner, preserving the running log as the collapsed History section, and adding the *How Dandelion runs a research project* block between *Reproduce it* and *History*.
 - One document, one playbook, two templates, three shared paste-verbatim blocks (one of them conditional), plus this promotion rule.
 
 ## Quality checklist
@@ -142,9 +142,10 @@ This is the condensed Project Details overview. It is the **same for every proje
 - [ ] **State A:** running log is append-only, lean, and honest — entries only at finished artifacts, phase closes, or genuinely noteworthy events (not every session), including pivots and negatives.
 - [ ] **State A:** orientation footer lists artifacts (pending ones marked) and the licensing/public-state note.
 - [ ] **State A:** the About + Contact block is present, pasted verbatim, at the bottom of the page — from creation, not added later.
-- [ ] **Both states:** `Project Details/Project Details.md` was read to determine whether this run is agent-selected or director-requested — **read, not inferred** — and the run-provenance block is present verbatim directly under the banner/question if agent-selected, absent if director-requested.
+- [ ] **Both states:** `Project Details/Project Details.md` was read to determine whether this run is agent-selected or director-requested — **read, not inferred** — and the run-provenance block is present verbatim directly under the status banner if agent-selected, absent if director-requested.
 - [ ] **Both states:** if that file does not say which kind of run this is, the README was not published and the question went to the director instead.
-- [ ] **State B:** question → *[how-this-was-run — agent-selected runs only]* → result → verification → artifacts → reproduce → how-Dandelion-runs-a-project overview → history → licensing → about-and-contact, in order. On a director-requested run the bracketed section is absent and everything else keeps this order.
+- [ ] **State B:** status banner → *[how-this-was-run — agent-selected runs only]* → result → verification → artifacts → reproduce → how-Dandelion-runs-a-project overview → history → licensing → about-and-contact, in order. On a director-requested run the bracketed section is absent and everything else keeps this order.
+- [ ] **State B:** status banner survived the promotion, contains the one-line question, records the completed phase, carries the public-state tag `Concluded`, and gives the conclusion date as last-updated.
 - [ ] **State B:** headline result keeps the honesty bound; a negative is shown as a result.
 - [ ] **State B:** "Reproduce it" is a pointer to the packet's README; no section restates content another artifact owns.
 - [ ] **State B:** the methodology overview block is present (pasted verbatim) and the running log is preserved as History (not deleted on promotion).
@@ -162,7 +163,7 @@ This is the condensed Project Details overview. It is the **same for every proje
 - **Marketing voice creeping in.** The README sells instead of reports. Its job is honest state + verification.
 - **Deleting the log on promotion.** State B must preserve the running log as History — that trail is the show-the-work proof.
 - **A finished README that hides the result.** Burying a clean negative, or stating the result without the bound. Lead with the honest headline.
-- **Stale banner.** Phase advanced, banner didn't. Update it at every phase transition.
+- **Stale or dropped banner.** A phase advanced without updating the banner, or promotion removed it. Update it at every phase transition and retain it in State B with the terminal `Concluded` state.
 - **Contact only on finished work.** The About + Contact block gets added at promotion instead of at creation, so the entire live run — the whole period when a reader has a question someone could still act on — is published with no way to reach anyone. This is the failure the block is in State A to prevent.
 - **A personalized contact block.** A project-specific address, form, or handle is added "just for this run." It becomes a second place the company's contact information lives, and it is the copy nobody updates. One address, everywhere, pasted verbatim.
 - **Merging About with the methodology block.** They share a sentence, so someone collapses them to avoid apparent duplication. They answer different questions — *how was this done* and *who do I talk to* — and merging them loses the second one, which is the one with an action attached.
