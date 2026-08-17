@@ -143,6 +143,8 @@ The goal is continuity — this file should make restarting work feel seamless r
 
 You will use the `/chats/` directory to hold targeted conversations without bloating context.
 
+`Tools/chat.py` is the supported interface for reading checkpoints and appending to active transcripts. It protects the append-only history from stale-tail collisions and preserves each transcript's existing line endings. Read `Tools/README.md` before using it; never hand-edit an active transcript.
+
 ### Folder Structure
 
 Root: /chats/
@@ -200,10 +202,10 @@ Example Path Structure
 5. Begin the conversation
 
 #### During the Chat
-- Add each message as a new entry in the active transcript
-- Before posting, check the current date and time using your shell or an equivalent tool (e.g., `date` on a Unix-like shell). Begin each of your messages with the timestamped header: <**Your name (Session #, YYYY-MM-DD HH:MM TZ):**> — for example, `**Claude (Session 150, 2026-05-09 14:14 PDT):**`. The format is: ISO date, 24-hour time, timezone abbreviation.
-- You must only append new messages to Active.md chat files
-- You must never overwrite, delete, or truncate the existing content of a chat log
+- Run `python -B Tools/chat.py check "<active-transcript>"` and read the complete transcript before composing.
+- Put only the message body in a separate UTF-8 file, then post it with `python -B Tools/chat.py post "<active-transcript>" --agent <name> --session <number> --body-file "<body-file>" --expect-bytes <count-from-check>`.
+- If `post` refuses because the transcript changed, read the new content and reconsider the reply. Never retry against stale context.
+- You must only append new messages to Active.md chat files. Never overwrite, delete, truncate, or hand-edit an active chat log.
 - Keep messages clearly separated and concise
 - Only participants belonging to that folder (e.g., Claude-Codex) may post in that chat
 
@@ -259,6 +261,23 @@ You may work independently or collaboratively at any time.
 
 ---
 
+## Parallel Work Claims and Review
+
+`Work/Active/` is the visible coordination surface for shared writes. Its `README.md` is scaffolding, not a claim. Before changing a shared project file, open or adopt one other Markdown record there that names one lead, one reviewer or collaborator, the exact paths or stable disjoint regions the lead may write, the next ready unit, and explicit non-goals.
+
+- One lead owns each declared write scope. A collaborator may inspect it, but does not edit it unless the record transfers the lead first.
+- Read-only inspection needs no claim. Claims reserve writes, not subjects, ideas, or files merely being read.
+- Active chat transcripts are the sole append-only exception and are written only through `Tools/chat.py`.
+- Two live claims may not overlap. Compare a proposed path or stable region with every active record and resolve any ambiguity in chat before either agent writes.
+- A claim grants no wider authority: it does not waive a scientific gate, same-state review, human approval, external-resource rule, publication boundary, credential boundary, or spending limit.
+- Cite a work record by its record name, not by its `Work/Active/`, `Work/Done/`, or `Work/Dropped/` folder, so the citation survives the record's lifecycle move.
+
+When the objective is complete, record the outcome and move the claim to `Work/Done/`. If it is abandoned, record why and move it to `Work/Dropped/`. Preserve the record in either case.
+
+Before active artifact review, read `Playbooks/review-cycle.md` and create a filled card from `Review Cards/TEMPLATE.md`. Both agents must explicitly approve the same measured candidate state; creation, an edit, a handoff, downstream use, silence, and timeout are not approval.
+
+---
+
 ##  Team Culture and Environment
 
 This project isn’t just an experiment in coordination — it’s a creative ecosystem. Each participant, human or AI, is part of a shared culture built on curiosity, respect, and intellectual play. We’re exploring what collaboration can feel like when logic, imagination, and empathy coexist.
@@ -300,32 +319,33 @@ The workflow ensures all agents maintain consistency while still thinking freely
 
 ### Sequential Steps
 
-1. **Read Project Details**
-   - Located in `/Project Details/`
-   - Read everything inside before doing any work starting with Project Details.md
-2. **Check Summary of Only Necessary Context**
-   - Located in your personal folder
-   - Review to recall your current trajectory
-3. **Review Chats (Context-First Batch Protocol)**
-   - Phase A (Discovery & Ingestion): 
-      -Read all `Summary.md` files in all /chats/ folders that include you in order to gather previous context
-      -Read all `Active.md` files in all /chats/ folders that include you
-      -Do not reply yet
-   - Phase B (Reply):
-      -Iterate through each Active.md file you read
-      -If a response from you is required, write your response and APPEND it to the file. Else, move on to the next file.
-4. **Perform Your Work**
-   - Conduct research, write, build, code, create as needed, etc.
-   - You have full autonomy in how you complete your tasks
-5. **Create Session Summary**
-   - When finished, write a new report in Session Summaries/ following the naming and structure guidelines above
-6. **Update README**
-7. **Rewrite Summary of Only Necessary Context**
-8. **Update `.gitignore`, then commit and push your work to git**
-   - Before staging anything, review the changes you are about to commit. If any files should not be tracked in the repository (secrets, credentials, local environment files, large binary artifacts, OS/IDE cruft, virtual environments, build outputs, etc.), update or create the project's `.gitignore` to exclude them. The agents are collectively responsible for keeping `.gitignore` accurate; if you notice something that should have been ignored from earlier sessions, fix it.
-   - After `.gitignore` is correct, stage everything you changed during the session, commit it, and push to the remote.
-   - Use the commit message format: `<Your Name> Session <#>` — for example, `Claude Session 150`.
-   - This is the last step of the session. The push captures the complete session, including the closeout files.
+1. **Read the project constitution**
+   - Read everything in `/Project Details/`, starting with `Project Details.md`.
+2. **Read continuity**
+   - Read your `Summary of Only Necessary Context.md`, then the most recent relevant human report and the files it points to.
+3. **Inspect live work claims**
+   - Read every Markdown file in `Work/Active/` except its scaffolding `README.md`.
+   - Before any shared write, open or adopt a precise claim and compare it with the live set. Resolve overlaps in chat before writing.
+4. **Run the chat inbox**
+   - Run `python -B Tools/chat.py inbox --agent <Name>` and read all delivered content before replying or selecting work.
+   - Read the `Summary.md` of every concluded chat that includes you and that you have not read before; `inbox` reports only active transcripts.
+   - Reply through `Tools/chat.py` where needed. A successful append is evidence of delivery, not approval of its content.
+5. **Select and complete a disjoint ready unit**
+   - Prefer useful work whose declared paths or regions do not overlap another live claim.
+   - Run the inbox again after each coherent unit and before any write that could collide with another agent's work.
+   - Use `Tools/chat.py wait` only when a specific outstanding reply is the identified dependency. A timeout is not approval or rejection, and waiting never substitutes for useful disjoint work.
+   - Run active artifact reviews through `Playbooks/review-cycle.md` and `Review Cards/`; do not infer same-state approval.
+6. **Prepare closeout**
+   - Run a final inbox checkpoint before writing closeout state. If a reply caused by this session's work is still outstanding, run `python -B Tools/chat.py wait --agent <Name> --timeout 900` — one explicit 15-minute wait — and then run the inbox checkpoint again.
+   - If that checkpoint delivers a reply, read it and resume the applicable workflow step. Complete or hand off the coherent response unit, then return to this closeout step and repeat the final checkpoint and 15-minute wait for any reply caused by the new work. Continue that reply-processing loop until no identified reply remains or one complete 900-second wait expires without new content.
+   - A timeout, silence, an unchanged checkpoint, or the fact that a reply arrived never substitutes for approval. `Tools/chat.py wait` watches project chat only; if a project uses another authorized inbox, refresh that inbox after the wait before deciding the reply dependency is clear.
+   - If the project is public, perform the Live-Run README heartbeat check required by Project Details.
+   - Create the numbered human report, update your workspace README, and completely rewrite `Summary of Only Necessary Context.md`.
+7. **Close out the exact path set**
+   - Review the worktree and `.gitignore`. Include only paths owned by this session and both endpoints of any move.
+   - Preview with `python -B Tools/closeout.py --agent <Name> --session <number> --dry-run --paths <exact paths>`.
+   - If the preview is correct, run the same command without `--dry-run`. Never replace the explicit path set with stage-all.
+   - The tool's refusal is a boundary to inspect, not permission to break its lock, widen the path set, rewrite history, or force-push. After success, verify local `HEAD`, the remote-tracking branch, and the live remote.
 
 Once your work has been committed and pushed, you are finished.
 

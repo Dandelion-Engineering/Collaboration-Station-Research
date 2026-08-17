@@ -1,14 +1,20 @@
 # Collaboration Station — Research
 
+> **Adaptation note.** This version is shaped around a director using it to explore growing interests in neuroscience and robotics. A trained researcher can adapt the project identity, roles, standards, and playbooks to fit their expertise and setting while preserving the framework's evidence and review controls.
+>
+> **Current-method note.** The parallel coordination tools and bounded exact-state review cycle were recently added and tested in a private parallel-work fixture. They have not yet run one whole exploratory research project from seed idea through final deliverables.
+>
+> **Authorship note.** This README was written by Tumble and reviewed by Wisp, the working names Dandelion Engineering uses for AI agents running on OpenAI Codex and Anthropic Claude Code. Dandelion Engineering is independent and is not affiliated with, sponsored by, or endorsed by OpenAI or Anthropic.
+
 A plain-language framework for running exploratory scientific research projects with AI agents.
 
-Collaboration Station is not software. There is nothing to install, no dependencies, no API to call. It is a folder structure and a set of instructions written in ordinary English. You point one or more AI agents at it, give them an idea to investigate, and they work the project across many sessions — reading where the last session left off, contributing something real, and writing down clearly what they did before they stop.
+Collaboration Station is a plain-language research framework, not an application or hosted service. Its core is a folder structure and instructions written in ordinary English. To start a project, copy the repository to a new folder. There are no packages to install and no credentials to set up: the two small coordination utilities use Python's standard library, so Python 3 and Git are all you need. You point one or more AI agents at it, give them an idea to investigate, and they work the project across many sessions — reading where the last session left off, contributing something real, and writing down clearly what they did before they stop.
 
 The whole framework is readable in an afternoon. That is deliberate. If you cannot read it, you cannot trust what it produces.
 
 ## What it is good for
 
-Exploratory research — the stage before you commit real time, money, or a graduate student to an idea.
+Exploratory research — the stage before you commit real time and/or money to an idea.
 
 A lot of promising ideas are worth a week of investigation and not worth a year. The problem is that finding out which is which has historically cost about as much as just doing the work. This framework is aimed squarely at that gap: it lets you run an idea far enough to learn whether it deserves your main research effort, and it makes the answer "no" cheap enough that you can afford to ask often.
 
@@ -35,12 +41,33 @@ The loop is simple and it is the whole idea:
 
 Continuity between sessions is handled by files, not by model memory. Each agent maintains a summary of exactly what a future session needs to resume, and writes a human-readable report at the end of every session. That is why a project can survive weeks of interruptions.
 
+## How two agents work in parallel
+
+Parallel work is explicit rather than optimistic. Before changing shared files, an agent records one bounded write claim in `Work/Active/`; the other agent can take a different unit only when its paths or stable regions do not overlap. `Tools/chat.py` gives each agent an inbox checkpoint and refuses an append if the transcript changed while a reply was being composed. Active artifacts are handed off with measured identities and reviewed against a bounded Review Card, so both approvals must name the same state.
+
+The detailed interfaces are deliberately small and inspectable:
+
+- [`AgentPrompt.md`](AgentPrompt.md) — startup, checkpoints, work claims, review, and path-scoped closeout.
+- [`Tools/README.md`](Tools/README.md) — the bundled chat and Git-closeout utilities.
+- [`Work/Active/README.md`](Work/Active/README.md) — the compact parallel-work record template.
+- [`Playbooks/review-cycle.md`](Playbooks/review-cycle.md) and [`Review Cards/README.md`](Review%20Cards/README.md) — the exact-state review method.
+
+## Choose a launch recipe
+
+The same template supports two ways to start its agents. In **sequential mode**, an ignored `.agent-turn` file permits only the named agent to work. In **parallel mode**, Codex and Claude use separate `.codex-session.lock` and `.claude-session.lock` wrappers and may work concurrently on disjoint claims.
+
+The mode belongs to the external launcher, not to the committed research workflow. The repository does not switch modes automatically, and a run must not mix them. [`LAUNCHING.md`](LAUNCHING.md) gives the copy-ready Codex and Claude wrappers for manual sessions and scheduled automations, plus fail-closed recovery rules.
+
 ## Repository layout
 
 ```
 AgentPrompt.md              The instructions an agent reads first. Start here.
+LAUNCHING.md                Human-facing sequential and parallel launcher recipes.
 Project Details/            Identity, standards, working method, and the project idea.
 Playbooks/                  How each deliverable is built — one file per artifact.
+Tools/                      Standard-library chat and path-scoped closeout utilities.
+Work/                       Active, completed, and dropped parallel-work records.
+Review Cards/               Exact candidate identities, scope, and review evidence.
 agents/<name>/              One workspace per agent.
   README.md                   Guide to that agent's workspace.
   Summary of Only Necessary Context.md
@@ -56,7 +83,7 @@ LICENSE, LICENSE-docs, LICENSING.md, CITATION.cff
                             Licensing and citation metadata.
 ```
 
-The `chats/` folders are the part people tend to find surprising. Agents talk to each other and to the director in Markdown files, appending timestamped messages. It costs nothing, it keeps conversations out of the main context window, and it leaves a complete record of how a decision was actually reached.
+The `chats/` folders are the part people tend to find surprising. Agents talk to each other and to the director in Markdown files. The bundled chat utility appends timestamped messages with stale-state checks and per-agent inbox markers. It keeps conversations out of the main context window and leaves a complete record of how a decision was actually reached.
 
 ## What a finished project leaves behind
 
@@ -76,9 +103,9 @@ The reasoning trail is the point. You do not get a result handed to you from a b
 2. Open `Project Details/Project Details.md` and make it yours. The identity, values, and founder sections describe Dandelion Engineering; replace them with your own, or cut them. Write your idea into **The Idea** section at the bottom.
 3. Replace `CITATION.cff` — as shipped it describes *this framework*, so a project that leaves it unchanged will claim to be Collaboration Station. Swap the title, abstract, URL, date, and author for your project's. Update `LICENSING.md` the same way; both name Dandelion Engineering's director as the citable author.
 4. Rename the folders in `agents/` and `chats/` if you are using different agents. Two agents from different model families is the configuration this was built around — it makes cross-review meaningful rather than an echo — but the structure does not depend on the specific names. If you rename them, also update the default writer/reviewer convention in `Project Details/Project Details.md`, which currently assigns Claude as the default writer and Codex as the required reviewer.
-5. Start a session by giving your agent this instruction: **"Follow the instructions in AgentPrompt.md."** That is the entire launch command.
+5. Choose one of the two recipes in [`LAUNCHING.md`](LAUNCHING.md) and configure its ignored local state. Use that recipe's per-agent wrapper for every manual or automated start. Inside the wrapper, the project command remains: **"Follow the instructions in AgentPrompt.md."**
 
-The framework assumes an agent with filesystem access to the project folder. Nothing else is required.
+The framework assumes an agent with filesystem access to the project folder. The bundled coordination utilities require Python 3 and Git, but install no packages and carry no credentials; the closeout utility uses only the repository's configured Git remote and authentication.
 
 ## A note on honesty
 
@@ -98,7 +125,7 @@ Attribution is also what CC BY 4.0 asks for on the prose, so a citation covers b
 
 Path-scoped. Code and software-like materials are MIT (`LICENSE`); prose and narrative artifacts are CC BY 4.0 (`LICENSE-docs`). `LICENSING.md` is the authoritative map of which applies where. Datasets are not redistributed and remain under their source licenses.
 
-**A note on GitHub's license badge.** GitHub reads the root `LICENSE` file and labels this repository "MIT" in the sidebar. That label does not describe what is actually here: this repository contains no code, so every file in it is prose under **CC BY 4.0**. Both license files ship anyway, because a project built from this template will contain code as well as prose. Where the badge and `LICENSING.md` disagree, `LICENSING.md` governs.
+**A note on GitHub's license badge.** GitHub reads the root `LICENSE` file and labels this repository "MIT" in the sidebar. That badge describes the bundled coordination programs and other software-like material; it does not license the prose. The instructions and narrative artifacts remain **CC BY 4.0**. `LICENSING.md` is the authoritative path-by-path map when the badge is too coarse.
 
 ---
 
@@ -121,4 +148,3 @@ Dandelion Engineering is run by Randy Crespo. If this work or the way it was mad
 
 - **LinkedIn:** [linkedin.com/in/randy-crespo](https://www.linkedin.com/in/randy-crespo)
 - **Email:** [randy@dandelionengineering.com](mailto:randy@dandelionengineering.com)
-

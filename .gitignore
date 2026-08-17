@@ -1,0 +1,9 @@
+Tools/.state/
+Tools/__pycache__/
+.closeout-session.lock
+
+# External launcher state. These files coordinate local sessions and never ship.
+.agent-session.lock
+.codex-session.lock
+.claude-session.lock
+.agent-turn

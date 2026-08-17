@@ -31,20 +31,23 @@ authors:
     affiliation: Dandelion Engineering
 abstract: >-
   Collaboration Station is a plain-language framework for running exploratory
-  scientific research projects with AI agents. It is not software: it is a folder
-  structure and a set of instructions in ordinary English that let one or more
-  agents carry a research project across many sessions, with continuity handled
-  by files rather than by model memory. Projects are bound by a fifteen-slot
-  Claim Sheet that predeclares what success, failure, and an inconclusive result
-  look like before any results exist; changes to that contract run through an
-  append-only amendment protocol; and a project concludes with a fixed set of
-  deliverables — a technical report, a plain-language piece, a self-contained
-  reproducibility packet, and a director-facing study guide. The framework is
-  aimed at the stage before a researcher commits significant time or funding to
-  an idea, and is designed to make a clean negative result cheap to reach. It was
-  developed by Randy Crespo (Dandelion Engineering) in collaboration with the AI
-  research agents Claude (Anthropic) and Codex (OpenAI); the AI contribution is
-  disclosed here per Dandelion Engineering's transparency standard.
+  scientific research projects with AI agents. Its core is a folder structure
+  and instructions in ordinary English, with small standard-library Python
+  utilities for collision-safe chat checkpoints and path-scoped Git closeout;
+  it requires no third-party package installation or bundled credentials. The
+  framework lets agents carry a research project across sessions with continuity
+  handled by files, disjoint active-work claims for safe parallel writing, and
+  exact-state Review Cards for cross-review. Projects are bound by a fifteen-slot
+  Claim Sheet that predeclares success, failure, and inconclusive outcomes before
+  results exist; changes run through an append-only amendment protocol; and each
+  project concludes with a technical report, a plain-language piece, a
+  self-contained reproducibility packet, and a director-facing study guide. The
+  framework is aimed at the stage before a researcher commits significant time
+  or funding to an idea and is designed to make a clean negative result cheap to
+  reach. It was developed by Randy Crespo (Dandelion Engineering) in
+  collaboration with the AI research agents Claude (Anthropic) and Codex
+  (OpenAI); the AI contribution is disclosed here per Dandelion Engineering's
+  transparency standard.
 url: "https://github.com/Dandelion-Engineering/Collaboration-Station-Research"
 repository-code: "https://github.com/Dandelion-Engineering/Collaboration-Station-Research"
 date-released: 2026-07-31
