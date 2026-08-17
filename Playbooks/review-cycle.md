@@ -95,6 +95,21 @@ The reviewer reads the full scope of the card against the acceptance properties 
 
 **Any later reinstatement of a withheld element is a new candidate with a new card**, and it starts at Round 1. It does not resume the review that withheld it.
 
+### A withholding verdict is told to the director
+
+**Either terminal verdict above narrows what the project ships, and it is reached by two agents failing to agree rather than by anything the director decided.** Recording it only in the Review Card and the project chat routes it, in practice, to nobody: the director does not review the work in detail, and those are precisely the two surfaces he is least likely to read. **So the deliverable would quietly get smaller, and the one person entitled to decide otherwise would never learn the question arose.**
+
+**Append an entry to `director_requests.md`** — the mechanism this framework already has for what only the director can settle — following `Playbooks/director-requests.md`. ⚠️ **That file is for genuine director-only work and not for notices, so the entry has to name the decision that is actually his**, which after a terminal verdict is exactly one: **whether he wants the withheld element reconsidered.** Write it to that playbook's own fields:
+
+- **What is needed** — his decision on whether to reconsider the withheld element. **Only he can make it**, because the ladder has already produced the agents' answer and neither of them may reopen it.
+- **Why** — what was withheld, named specifically enough that he can tell what the project now does not do, and the residual disagreement in a sentence or two, **carrying *both* positions rather than the prevailing one.** He is being told precisely because it did not resolve, so one side of it is not enough to decide on.
+- **What is blocked** — **reconsideration of that element, and nothing else.** The rest of the run is not waiting on him.
+- **The fallback** — **the run continues with the terminal withholding in force**, shipping without the contested element, and it needs nothing from him to do so.
+
+⚠️ **This does not reopen the review, and asking him is not a tie-break.** The ladder has ended, the verdict stands, and the withholding is already in force — **so neither agent waits on a reply and silence changes nothing.** What his answer can do is start something new: **an instruction to reconsider opens a new candidate at Round 1 with a new card**, exactly as the paragraph above requires, and it never resumes the review that withheld the element or asks him to choose between the two positions inside it.
+
+⚠️ **It fires only on a terminal withholding verdict.** It is not an escalation at the round cap, not a route for a disagreement still moving through the ladder, and not a way to hand the director a decision the ladder exists to reach. **The bounded loop is unchanged**; what changes is only that its quietest outcome stops being silent.
+
 ## An out-of-card repair is a proposed scope expansion
 
 **Never a silent widen.** When the owner finds something wrong outside the card while responding to a round, the owner:
@@ -117,6 +132,7 @@ The reviewer reads the full scope of the card against the acceptance properties 
 - [ ] No approval was inferred from an edit, a handoff, downstream use, silence, or a timeout.
 - [ ] A late blocker was labelled `LATE-BLOCKER` with why it was missed.
 - [ ] A capped disagreement was classified and resolved through the ladder, and any withholding is named in the terminal verdict.
+- [ ] A withholding verdict was appended to `director_requests.md` as a director-only decision — what is needed, why with **both** positions, what is blocked, and the fallback — and not as a notice.
 
 ## Common failure modes
 
@@ -127,4 +143,5 @@ The reviewer reads the full scope of the card against the acceptance properties 
 - **The reviewer rewriting substance.** One mind on the artifact and two signatures on it is the appearance of review, not review.
 - **Silent widening.** Fixing something outside the card while responding, and folding it into the same approval. It is a scope expansion and the reviewer rules on it first.
 - **Arguing past the cap.** The ladder exists so a disagreement ends in a decision. **Withholding the contested element is a correct outcome** — an unbounded argument is not more rigorous, it is just unbounded.
+- **Withholding silently.** Ending the ladder correctly and telling no one, so the deliverable narrows and the director finds out from the shipped artifact or not at all. **The verdict is fail-closed by design; it is not supposed to be quiet.**
 - **A card written after the fact.** Then it documents what happened instead of bounding what was reviewed, and no approval in it can name a state.
