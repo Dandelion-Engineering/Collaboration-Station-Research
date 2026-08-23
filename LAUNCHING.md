@@ -1,5 +1,10 @@
 # Launching Collaboration Station
 
+> **This guide is retained for projects that already use this superseded
+> framework. Do not use it to start a new project.** New research projects
+> should use
+> [Collaboration Station Research 2.0](https://github.com/Dandelion-Engineering/Collaboration-Station-Research-2.0).
+
 This guide is for the person or scheduler that starts agent sessions. The repository supports two launch modes without changing its internal research workflow:
 
 - **Sequential:** both agent jobs may be scheduled, but `.agent-turn` permits only one named agent to work at a time.

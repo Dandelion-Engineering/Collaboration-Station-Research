@@ -22,7 +22,7 @@
 # CFF treats multiple `license:` values as "either/or," which would misstate that
 # split. `LICENSING.md` is the authoritative license-scope record.
 cff-version: 1.2.0
-message: "If you use Collaboration Station, or adapt it for your own work, please cite it using the metadata below."
+message: "This framework is superseded by Collaboration Station Research 2.0; if you use or adapt this historical version, please cite it using the metadata below."
 title: "Collaboration Station (Research): a plain-language framework for running exploratory scientific research projects with AI agents"
 type: software
 authors:
@@ -30,6 +30,8 @@ authors:
     given-names: Randy
     affiliation: Dandelion Engineering
 abstract: >-
+  Superseded on 2026-08-23 by Collaboration Station Research 2.0, this
+  repository is preserved as the historical first-generation framework.
   Collaboration Station is a plain-language framework for running exploratory
   scientific research projects with AI agents. Its core is a folder structure
   and instructions in ordinary English, with small standard-library Python
