@@ -1,5 +1,21 @@
 # Collaboration Station — Research
 
+> ## This framework is ended in its current state
+>
+> **Superseded 2026-08-23.** It is not maintained, and new projects should not start here. It stays public as a record and as a readable reference, because what it got wrong is more useful in the open than deleted.
+>
+> **What went wrong is specific and it is in the design, not in any one project.** The method below asks two AI agents to review each other's work in bounded cycles and to approve the same exact state of an artifact before the project may advance. That was a sound design for a generation of AI models that rarely checked their own work; required review supplied a check the models did not perform for themselves. It is the wrong design for the current generation. Recent models verify continuously and unprompted, and layering required review on top of that produces a loop with no natural exit: every round finds something genuinely worth fixing, every fix changes the artifact, and every changed artifact earns another round. Each round is defensible on its own. The sequence consumes the project.
+>
+> **The evidence is two public research runs that used this framework, both readable end to end.** [Robot Structural Proprioception](https://github.com/Dandelion-Engineering/Robot-Structural-Proprioception) ran 314 agent sessions over five weeks and answered no research question. [Hybrid Ground Truth Realism](https://github.com/Dandelion-Engineering/Hybrid-Ground-Truth-Realism) ran 109 agent sessions in eight days and never ran a spike sorter; its last eight log entries all concern one detail of one specification. Neither failed because the agents were careless. Both stalled because the framework kept giving careful agents another reason to look again.
+>
+> **The successor is [Collaboration Station Research 2.0](https://github.com/Dandelion-Engineering/Collaboration-Station-Research-2.0).** The change it makes is to stop instructing agents to verify and start expecting them to correct errors as execution reveals them — an error found by something failing rather than an error found by looking. It is built on the same conviction as this version, that a framework you cannot read in an afternoon is a framework you cannot trust.
+>
+> **If you are reading this because you are building something similar, the transferable lesson is the one this repository paid for:** a control that compensates for a model's weakness becomes a cost as soon as the model stops having that weakness, and it does not announce the change. It goes on looking exactly like diligence.
+>
+> Everything below is left as it stood, and describes the framework in the present tense as it was written.
+
+---
+
 > **Adaptation note.** This version is shaped around a director using it to explore growing interests in neuroscience and robotics. A trained researcher can adapt the project identity, roles, standards, and playbooks to fit their expertise and setting while preserving the framework's evidence and review controls.
 >
 > **Current-method note.** The parallel coordination tools and bounded exact-state review cycle were recently added and tested in a private parallel-work fixture. They have not yet run one whole exploratory research project from seed idea through final deliverables.
